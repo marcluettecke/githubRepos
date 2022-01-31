@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from '../../environments/environment'
+import {API_URL} from "../env";
 
 
 @Injectable({
@@ -42,21 +43,7 @@ export class DataStorageService {
     )
   }
 
-  async scrapeContributors(path: string = 'https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes/') {
-    // const fullPath = path + 'graphs/contributors'
-    const fullPath = 'https://example.com'
-    this.http.get(fullPath, {
-      headers: new HttpHeaders({
-                                 'Content-Type': 'application/json'
-                               })
-    }).subscribe(response => {
-      console.log(response)
-    })
-    // const response = await fetch(fullPath);
-    // const text = await response.text();
-    // const terms = parse(text);
-    // console.log(terms.innerHTML)
-    // console.log(terms)
-    // return terms
+  scrapeContributors(path: string = 'https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes/') {
+    return this.http.get(`${API_URL}/contributors`)
   }
 }

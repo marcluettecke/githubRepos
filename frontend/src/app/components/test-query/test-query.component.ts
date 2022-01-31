@@ -9,6 +9,7 @@ import {DataStorageService} from "../../services/data-storage.service";
            })
 export class TestQueryComponent implements OnInit {
   testData: Object
+  response: string[]
 
   constructor(private dataStorageService: DataStorageService) {
   }
@@ -18,6 +19,9 @@ export class TestQueryComponent implements OnInit {
     //   this.testData = response
     //   console.log(this.testData)
     // })
-    this.dataStorageService.scrapeContributors()
+    this.dataStorageService.scrapeContributors().subscribe(response => {
+      console.log(response)
+      this.response = <string[]>response
+    })
   }
 }
