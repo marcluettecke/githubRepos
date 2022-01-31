@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TestQueryComponent} from './test-query.component';
+import {ContributorsComponent} from './contributors.component';
 
-describe('TestQueryComponent', () => {
-  let component: TestQueryComponent;
-  let fixture: ComponentFixture<TestQueryComponent>;
+describe('ContributorsComponent', () => {
+  let component: ContributorsComponent;
+  let fixture: ComponentFixture<ContributorsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-                                           declarations: [TestQueryComponent]
+                                           declarations: [ContributorsComponent]
                                          })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestQueryComponent);
+    fixture = TestBed.createComponent(ContributorsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

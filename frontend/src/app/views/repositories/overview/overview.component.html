@@ -1,0 +1,7 @@
+<!--<div class="overview-wrapper">-->
+<!--  <a [routerLink]="['/repositories', repository.owner, repository.name, 'contributors']"-->
+<!--     *ngFor="let repository of repositories">{{repository.name}}</a>-->
+<!--</div>-->
+<div class="overview-wrapper">
+  <app-repo-table [data]="repositories"></app-repo-table>
+</div>

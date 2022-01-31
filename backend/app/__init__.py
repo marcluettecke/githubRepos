@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, send_from_directory
+from flask import Flask
 from flask_cors import CORS
 
 from backend.scripts.scraper import ContributorScaper
@@ -9,12 +9,11 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/contributors')
-def default():
+@app.route('/repositories/<owner>/<repo>/contributors')
+def default(owner, repo):
     scrapper_instance = ContributorScaper(
-        url='https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes/graphs/contributors')
+        url=f'https://github.com/{str(owner)}/{str(repo)}/graphs/contributors')
     return json.dumps(scrapper_instance.scrape_contributors())
-    # return scrapper_instance.contributor_accounts
 
 
 app.run()

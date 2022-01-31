@@ -7,23 +7,27 @@ import {StoreModule} from '@ngrx/store';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // Angular Material
-import {MatSliderModule} from '@angular/material/slider';
+import {MaterialModule} from "./material.module";
 
 import {HttpClientModule} from '@angular/common/http';
 // Custom Components
-import {TestQueryComponent} from './components/test-query/test-query.component';
+import {OverviewComponent} from './views/repositories/overview/overview.component';
+import {ContributorsComponent} from './views/repositories/contributors/contributors.component';
+import {RepoTableComponent} from './components/repo-table/repo-table.component';
 
 @NgModule({
             declarations: [
               AppComponent,
-              TestQueryComponent,
+              OverviewComponent,
+              ContributorsComponent,
+              RepoTableComponent,
             ],
             imports: [
               BrowserModule,
               AppRoutingModule,
               StoreModule.forRoot({}, {}),
               BrowserAnimationsModule,
-              MatSliderModule,
+              MaterialModule,
               HttpClientModule,
 
             ],

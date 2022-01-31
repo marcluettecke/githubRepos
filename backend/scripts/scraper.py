@@ -35,6 +35,7 @@ class ContributorScaper:
             self.contributor_accounts.append(
                 re.split('\.com/(.*)', el.find_element(By.XPATH, 'span/h3/a').get_attribute('href'))[1])
         self.__quit_driver()
+        print(self.contributor_accounts)
         return self.contributor_accounts
 
 
