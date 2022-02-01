@@ -10,5 +10,6 @@ export interface RepositoryInfo {
 
 export interface AllRepositoryInfo {
   count: number,
+  endCursor: string
   data: RepositoryInfo[]
 }

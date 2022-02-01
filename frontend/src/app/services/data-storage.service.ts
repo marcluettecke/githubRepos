@@ -17,10 +17,14 @@ export class DataStorageService {
   constructor(private http: HttpClient) {
   }
 
-  fetchAllRepos(amount: number): Observable<AllRepositoryInfo> {
+  fetchAllRepos(amount: number, offset: string = ''): Observable<AllRepositoryInfo> {
     const request = `query {
-          search(query: "is:public", type: REPOSITORY, first: ${amount}) {
+          search(query: "is:public", type: REPOSITORY, first: ${amount} ${offset ? ', after: ' + '"' + offset + '"' : ''}) {
             repositoryCount
+            pageInfo {
+              endCursor
+              hasNextPage
+            }
             edges {
               node {
                 ... on Repository {
@@ -38,14 +42,15 @@ export class DataStorageService {
             }
           }
         }`
+    console.log(request)
     return this.http.post<any>(environment.githubApiUrl, {query: request}, {
                                  headers: {Authorization: `bearer ${environment.githubAccessToken}`}
                                }
     ).pipe(
       map(el => {
-        const regex = new RegExp('/^(.*[\\\\\\/])/')
         return {
-          count: el.data.reposityCount,
+          count: el.data.search.repositoryCount,
+          endCursor: el.data.search.pageInfo.endCursor,
           data: el.data.search.edges.map((item:
                                             {
                                               node:
@@ -66,8 +71,8 @@ export class DataStorageService {
               owner: item.node.nameWithOwner.split('/')[0],
               avatarUrl: item.node.owner.avatarUrl,
               description: item.node.description,
-              createdAt: item.node.createdAt,
-              updatedAt: item.node.updatedAt,
+              createdAt: new Date(item.node.createdAt),
+              updatedAt: new Date(item.node.updatedAt),
               homepageUrl: item.node.homepageUrl
             }
           })
@@ -75,7 +80,6 @@ export class DataStorageService {
         }
       })
     )
-
   }
 
   scrapeContributors(owner: string, repo: string) {
