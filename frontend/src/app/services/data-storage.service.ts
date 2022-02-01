@@ -42,7 +42,6 @@ export class DataStorageService {
             }
           }
         }`
-    console.log(request)
     return this.http.post<any>(environment.githubApiUrl, {query: request}, {
                                  headers: {Authorization: `bearer ${environment.githubAccessToken}`}
                                }

@@ -4,6 +4,10 @@ import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {Subscription} from "rxjs";
 import {DataStorageService} from "../../services/data-storage.service";
+import {AppState} from "../../store/app.reducer";
+import {Store} from "@ngrx/store";
+import * as SelectionActions from '../../views/repositories/overview/store/selection.actions'
+import {Router} from "@angular/router";
 
 @Component({
              selector: 'app-repo-table',
@@ -18,7 +22,7 @@ export class RepoTableComponent implements OnInit, AfterViewInit {
   // @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
+  constructor(private store: Store<AppState>, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -28,6 +32,9 @@ export class RepoTableComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
+  handleContributorsClick(owner: string, repo: string) {
+    this.router.navigate(['/repositories', owner, repo, 'contributors'])
+  }
 
 
 }

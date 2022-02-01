@@ -59,7 +59,7 @@
   <ng-container matColumnDef="contributors">
     <th class="table-header" mat-header-cell *matHeaderCellDef> Contributors </th>
     <td mat-cell *matCellDef="let element">
-      <mat-icon [routerLink]="['/repositories', element.owner, element.name, 'contributors']" color="primary"
+      <mat-icon (click)="handleContributorsClick(element.owner, element.name)" color="primary"
                 class="icon">exit_to_app</mat-icon>
     </td>
   </ng-container>

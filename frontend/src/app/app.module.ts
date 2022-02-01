@@ -14,6 +14,10 @@ import {HttpClientModule} from '@angular/common/http';
 import {OverviewComponent} from './views/repositories/overview/overview.component';
 import {ContributorsComponent} from './views/repositories/contributors/contributors.component';
 import {RepoTableComponent} from './components/repo-table/repo-table.component';
+import {HeaderComponent} from './components/header/header.component';
+import * as fromApp from './store/app.reducer'
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
 
 @NgModule({
             declarations: [
@@ -21,6 +25,7 @@ import {RepoTableComponent} from './components/repo-table/repo-table.component';
               OverviewComponent,
               ContributorsComponent,
               RepoTableComponent,
+              HeaderComponent,
             ],
             imports: [
               BrowserModule,
@@ -29,6 +34,12 @@ import {RepoTableComponent} from './components/repo-table/repo-table.component';
               BrowserAnimationsModule,
               MaterialModule,
               HttpClientModule,
+              StoreModule.forRoot({
+                                    contributors: fromApp.appReducer.contributors,
+                                    repos: fromApp.appReducer.repos,
+                                    selection: fromApp.appReducer.selection
+                                  }),
+              !environment.production ? StoreDevtoolsModule.instrument() : [],
 
             ],
             providers: [],

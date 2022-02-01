@@ -3,6 +3,9 @@ import {MatTableDataSource} from "@angular/material/table";
 import {RepositoryInfo} from "../../../models/RepositoryInfo";
 import {DataStorageService} from "../../../services/data-storage.service";
 import {Subscription} from "rxjs";
+import * as RepoActions from './store/repos.actions'
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../store/app.reducer";
 
 @Component({
              selector: 'app-overview',
@@ -16,16 +19,22 @@ export class OverviewComponent implements OnInit {
   repoSub: Subscription
   fetchAmount = 5
 
-  constructor(private dataStorageService: DataStorageService) {
+  constructor(private dataStorageService: DataStorageService, private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
-    // this.dataSource.paginator = this.paginator
-    this.repoSub = this.dataStorageService.fetchAllRepos(this.fetchAmount).subscribe(response => {
-      this.dataSource = new MatTableDataSource<RepositoryInfo>(response.data)
-      this.endCursor = response.endCursor
+    this.store.select('repos').subscribe(appState => {
+      if (appState && appState.repos.count !== 0) {
+        this.dataSource = new MatTableDataSource<RepositoryInfo>(appState.repos.data)
+      } else {
+        // this.dataSource.paginator = this.paginator
+        this.repoSub = this.dataStorageService.fetchAllRepos(this.fetchAmount).subscribe(response => {
+          this.dataSource = new MatTableDataSource<RepositoryInfo>(response.data)
+          this.endCursor = response.endCursor
+          this.store.dispatch(new RepoActions.AddRepos(response))
+        })
+      }
     })
-
   }
 
   applyFilter(event: Event) {
@@ -43,11 +52,17 @@ export class OverviewComponent implements OnInit {
     const buffer = 200;
     const limit = tableScrollHeight - tableViewHeight - buffer;
     if (scrollLocation > limit) {
-      this.dataStorageService.fetchAllRepos(this.fetchAmount, this.endCursor).subscribe(response => {
-                                                                                          const newData = [...this.dataSource.data, ...response.data]
-                                                                                          this.dataSource = new MatTableDataSource(newData)
-                                                                                        }
-      )
+      this.dataStorageService.fetchAllRepos(this.fetchAmount, this.endCursor)
+        .subscribe(response => {
+                     const newData = [...this.dataSource.data, ...response.data]
+                     this.dataSource = new MatTableDataSource(newData)
+                     this.store.dispatch(new RepoActions.AddRepos({
+                                                                    count: response.count,
+                                                                    endCursor: response.endCursor,
+                                                                    data: newData
+                                                                  }))
+                   }
+        )
 
     }
 
