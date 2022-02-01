@@ -1,0 +1,97 @@
+.content-wrapper {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    //color: var(--primary)
+    margin: 0;
+  }
+
+  .separator-line {
+    //line will only be as wide as the card within the padding - so need to increase the width
+    width: calc(100% + 2 * 17px);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    margin: 16px 0 14px 0;
+  }
+
+  .image-wrapper {
+    padding-top: 10px;
+    width: 100px;
+    height: 100px;
+
+    & img {
+      width: 100%;
+    }
+  }
+
+  .contact-wrapper {
+    display: flex;
+    gap: 10px;
+    color: rgba(1, 1, 1, 0.5);
+    font-weight: bold;
+
+
+  }
+
+  .location {
+    margin-top: -10px;
+    padding-bottom: 10px;
+    color: rgba(1, 1, 1, 0.5);
+  }
+
+  .action-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 20px;
+
+    &:hover mat-icon {
+
+      cursor: pointer;
+      color: var(--accent);
+    }
+
+    .action-text {
+      display: block;
+      margin: 0;
+      text-decoration: none;
+      color: rgba(1, 1, 1, 0.8);
+    }
+  }
+
+  .repository-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+    .single-repo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: rgba(1, 1, 1, 0.5);
+      margin: 0;
+      line-height: 1;
+
+      &:hover mat-icon {
+        color: var(--accent)
+      }
+
+      & mat-icon {
+        transform: scale(.8);
+        color: var(--primary);
+        margin-top: -2px;
+
+
+      }
+
+
+    }
+  }
+
+
+}

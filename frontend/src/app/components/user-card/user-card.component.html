@@ -1,0 +1,29 @@
+<mat-card>
+  <div class="content-wrapper">
+    <h2>Repository Info card</h2>
+    <div class="separator-line"></div>
+    <span>1 / 3</span>
+    <div class="image-wrapper">
+      <img [src]="userInfo.avatarUrl" alt="User Profile Avatar">
+    </div>
+    <div class="contact-wrapper">
+      <p class="name">{{userInfo.name}}</p>
+      <div class="separator"> | </div>
+      <p class="company">{{userInfo.company}}</p>
+    </div>
+    <p class="location">{{userInfo.location}}</p>
+    <div class="action-wrapper">
+      <mat-icon color="primary">email</mat-icon>
+      <a [href]="'mailto:' + userInfo.email" class="action-text">Email contact</a>
+    </div>
+    <div class="repository-wrapper">
+        <a class="single-repo-wrapper" *ngFor="let repo of userInfo.repositories.slice(0,3); let i = index"
+           [href]="+ repo.url">
+          {{i + 1}} - {{repo.name}}
+          <mat-icon>arrow_forward</mat-icon>
+        </a>
+
+    </div>
+  </div>
+</mat-card>
+

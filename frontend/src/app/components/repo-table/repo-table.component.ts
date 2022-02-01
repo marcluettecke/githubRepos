@@ -3,10 +3,8 @@ import {RepositoryInfo} from "../../models/RepositoryInfo";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {Subscription} from "rxjs";
-import {DataStorageService} from "../../services/data-storage.service";
 import {AppState} from "../../store/app.reducer";
 import {Store} from "@ngrx/store";
-import * as SelectionActions from '../../views/repositories/overview/store/selection.actions'
 import {Router} from "@angular/router";
 
 @Component({

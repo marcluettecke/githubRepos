@@ -1,9 +1,11 @@
 <div class="overview-wrapper">
-  <mat-form-field class="filter-input" appearance="outline">
-    <mat-label>Filter for name / owner / description</mat-label>
-    <input matInput placeholder="Angular.js" (keyup)="applyFilter($event)">
-</mat-form-field>
-  <div class="table" (scroll)="onTableScroll($event)">
-    <app-repo-table [dataSource]="dataSource"></app-repo-table>
-  </div>
+<!--  <mat-form-field class="filter-input" appearance="outline">-->
+<!--    <mat-label>Filter for name / owner / description</mat-label>-->
+<!--    <input matInput placeholder="Angular.js" (keyup)="applyFilter($event)">-->
+<!--  </mat-form-field>-->
+<!--  <div class="table" (scroll)="onTableScroll($event)">-->
+<!--    <app-repo-table [dataSource]="dataSource"></app-repo-table>-->
+<!--  </div>-->
+  <app-user-card [userInfo]="mockData"></app-user-card>
 </div>
+

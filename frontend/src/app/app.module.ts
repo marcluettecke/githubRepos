@@ -18,6 +18,7 @@ import {HeaderComponent} from './components/header/header.component';
 import * as fromApp from './store/app.reducer'
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
+import {UserCardComponent} from './components/user-card/user-card.component';
 
 @NgModule({
             declarations: [
@@ -26,6 +27,7 @@ import {environment} from '../environments/environment';
               ContributorsComponent,
               RepoTableComponent,
               HeaderComponent,
+              UserCardComponent,
             ],
             imports: [
               BrowserModule,

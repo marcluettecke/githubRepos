@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import * as RepoActions from './store/repos.actions'
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../store/app.reducer";
+import {UserInfo} from "../../../models/UserInfo";
 
 @Component({
              selector: 'app-overview',
@@ -13,6 +14,31 @@ import {AppState} from "../../../store/app.reducer";
              styleUrls: ['./overview.component.scss']
            })
 export class OverviewComponent implements OnInit {
+  mockData: UserInfo = {
+    name: 'Max Mustermann',
+    avatarUrl: 'https://st4.depositphotos.com/4329009/19956/v/380/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg?forcejpeg=true',
+    company: 'Random Company',
+    email: 'test.email@gmail.com',
+    location: 'San Francisco, USA',
+    websiteUrl: 'www.google.com',
+    repositories: [
+      {
+        name: 'randomRepo1',
+        url: 'https://github.com/marcluettecke/googleTaxonomy'
+      },
+      {
+        name: 'randomRepo2',
+        url: 'https://github.com/marcluettecke/googleTaxonomy'
+      },
+      {
+        name: 'randomRepo3',
+        url: 'https://github.com/marcluettecke/googleTaxonomy'
+      },
+
+    ]
+  }
+
+
   contributors: string[]
   dataSource = new MatTableDataSource<RepositoryInfo>()
   endCursor: string
