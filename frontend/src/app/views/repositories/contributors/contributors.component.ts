@@ -5,7 +5,6 @@ import {ActivatedRoute} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../store/app.reducer";
 import * as ContributorsActions from "./store/contributors.actions";
-import * as SelectionActions from '../overview/store/selection.actions'
 import {Subscription} from "rxjs";
 
 @Component({
@@ -33,28 +32,30 @@ export class ContributorsComponent implements OnInit, OnDestroy {
       if (appState) {
         this.contributorsInfo = appState.contributors
       }
-      if (this.contributorsInfo.length === 0) {
-        this.paramsSubscription = this.route.params.subscribe(params => {
-          this.name = params.owner
-          this.owner = params.repo
-        })
-        this.dataStorageSubscription = this.dataStorageService.scrapeContributors(this.name, this.owner).subscribe((response: string[]) => {
-          this.contributors = response
-          this.contributors.map(el => {
-            this.dataStorageService.getSingleUserInfo(el).subscribe(userResponse => {
-              this.store.dispatch(new ContributorsActions.AddContributor(userResponse))
-            })
+      this.paramsSubscription = this.route.params.subscribe(params => {
+        this.name = params.owner
+        this.owner = params.repo
+      })
+      this.dataStorageSubscription = this.dataStorageService.scrapeContributors(this.name, this.owner).subscribe((response: string[]) => {
+        this.contributors = response
+        this.contributors.map(el => {
+          this.dataStorageService.getSingleUserInfo(el).subscribe(userResponse => {
+            this.store.dispatch(new ContributorsActions.AddContributor(userResponse))
           })
-          this.loading = false
         })
-      }
+        this.loading = false
+      })
     })
   }
 
   ngOnDestroy() {
     this.storeSubscriptionContributors.unsubscribe()
-    this.paramsSubscription.unsubscribe()
-    this.dataStorageSubscription.unsubscribe()
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe()
+    }
+    if (this.dataStorageSubscription) {
+      this.dataStorageSubscription.unsubscribe()
+    }
   }
 
 }

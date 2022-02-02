@@ -16,7 +16,6 @@ export class UserCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.userInfo)
   }
 
 }

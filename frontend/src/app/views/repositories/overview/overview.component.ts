@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {RepositoryInfo} from "../../../models/RepositoryInfo";
 import {DataStorageService} from "../../../services/data-storage.service";
@@ -12,21 +12,25 @@ import {AppState} from "../../../store/app.reducer";
              templateUrl: './overview.component.html',
              styleUrls: ['./overview.component.scss']
            })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnDestroy {
   contributors: string[]
   dataSource = new MatTableDataSource<RepositoryInfo>()
   endCursor: string
   repoSub: Subscription
   fetchAmount = 15
-  loading = true
+  loading: boolean
+  storeSubscriptionRepos: Subscription
 
   constructor(private dataStorageService: DataStorageService, private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
+    this.loading = true
     this.store.select('repos').subscribe(appState => {
-      if (appState && appState.repos.count !== 0) {
+      if (appState.repos.count !== 0) {
+        console.log(appState.repos.data)
         this.dataSource = new MatTableDataSource<RepositoryInfo>(appState.repos.data)
+        this.loading = false
       } else {
         // this.dataSource.paginator = this.paginator
         this.repoSub = this.dataStorageService.fetchAllRepos(this.fetchAmount).subscribe(response => {
@@ -62,14 +66,20 @@ export class OverviewComponent implements OnInit {
           // this.loading = false
           this.store.dispatch(new RepoActions.AddRepos({
                                                          count: response.count,
-                                                                    endCursor: response.endCursor,
-                                                                    data: newData
-                                                                  }))
+                                                         endCursor: response.endCursor,
+                                                         data: newData
+                                                       }))
                    }
         )
 
     }
 
+  }
+
+  ngOnDestroy() {
+    if (this.storeSubscriptionRepos) {
+      this.storeSubscriptionRepos.unsubscribe()
+    }
   }
 
 

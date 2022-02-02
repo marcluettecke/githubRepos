@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {AppState} from "../../store/app.reducer";
 import {Store} from "@ngrx/store";
 import {Router} from "@angular/router";
+import * as SelectionActions from '../../views/repositories/overview/store/selection.actions'
 
 @Component({
              selector: 'app-repo-table',
@@ -32,6 +33,7 @@ export class RepoTableComponent implements OnInit, AfterViewInit {
 
   handleContributorsClick(owner: string, repo: string) {
     this.router.navigate(['/repositories', owner, repo, 'contributors'])
+    this.store.dispatch(new SelectionActions.ChangeSelection({owner, repo}))
   }
 
 
