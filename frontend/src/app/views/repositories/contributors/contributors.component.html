@@ -1,5 +1,11 @@
-<div *ngFor="let contributor of contributorsInfo">
-  <p>{{contributor.name}}</p>
-  <p>{{contributor.avatarUrl}}</p>
-  <p>{{contributor.email}}</p>
+<div class="view-wrapper">
+  <h2>Contributors to https://github.com/{{owner}}/{{name}}/, total of {{contributorsInfo.length}}</h2>
+  <div class="contributor-wrapper">
+    <app-user-card *ngFor="let contributor of contributorsInfo; let i = index" [currentIndex]="i"
+                   [userInfo]="contributor"
+                   [contributorsLength]="contributorsInfo.length"></app-user-card>
+  </div>
+  <div class="loading-wrapper" *ngIf="loading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
 </div>

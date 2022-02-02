@@ -1,11 +1,17 @@
-<div class="overview-wrapper">
-<!--  <mat-form-field class="filter-input" appearance="outline">-->
-<!--    <mat-label>Filter for name / owner / description</mat-label>-->
-<!--    <input matInput placeholder="Angular.js" (keyup)="applyFilter($event)">-->
-<!--  </mat-form-field>-->
-<!--  <div class="table" (scroll)="onTableScroll($event)">-->
-<!--    <app-repo-table [dataSource]="dataSource"></app-repo-table>-->
-<!--  </div>-->
-  <app-user-card [userInfo]="mockData"></app-user-card>
+<div class="view-wrapper">
+  <h2>Public repository overview on Github</h2>
+  <div class="overview-wrapper" *ngIf="!loading">
+    <mat-form-field class="filter-input" appearance="outline">
+      <mat-label>Filter for name / owner / description</mat-label>
+      <input matInput placeholder="Angular.js" (keyup)="applyFilter($event)">
+    </mat-form-field>
+    <div class="table" (scroll)="onTableScroll($event)">
+      <app-repo-table [dataSource]="dataSource"></app-repo-table>
+    </div>
+  </div>
+  <div class="loading-wrapper" *ngIf="loading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
 </div>
+
 

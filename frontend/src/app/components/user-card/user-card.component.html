@@ -1,24 +1,24 @@
 <mat-card>
   <div class="content-wrapper">
-    <h2>Repository Info card</h2>
+    <h2>Contributor Info Card</h2>
     <div class="separator-line"></div>
-    <span>1 / 3</span>
+    <span>{{currentIndex + 1}} /{{contributorsLength}}</span>
     <div class="image-wrapper">
-      <img [src]="userInfo.avatarUrl" alt="User Profile Avatar">
+      <img [src]="userInfo.avatarUrl? userInfo.avatarUrl : defaultImgUrl" alt="User Profile Avatar">
     </div>
     <div class="contact-wrapper">
       <p class="name">{{userInfo.name}}</p>
       <div class="separator"> | </div>
-      <p class="company">{{userInfo.company}}</p>
+      <p class="company">{{userInfo.company ? userInfo.company : 'NA'}}</p>
     </div>
-    <p class="location">{{userInfo.location}}</p>
+    <p class="location">{{userInfo.location ? userInfo.location : 'NA'}}</p>
     <div class="action-wrapper">
       <mat-icon color="primary">email</mat-icon>
       <a [href]="'mailto:' + userInfo.email" class="action-text">Email contact</a>
     </div>
     <div class="repository-wrapper">
         <a class="single-repo-wrapper" *ngFor="let repo of userInfo.repositories.slice(0,3); let i = index"
-           [href]="+ repo.url">
+           [href]="repo.url" target="_blank">
           {{i + 1}} - {{repo.name}}
           <mat-icon>arrow_forward</mat-icon>
         </a>

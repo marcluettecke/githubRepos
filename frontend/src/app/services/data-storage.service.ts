@@ -118,8 +118,8 @@ export class DataStorageService {
           email: el.data.user.email,
           location: el.data.user.location,
           websiteUrl: el.data.user.websiteUrl,
-          repositories: el.data.user.repositories.edges.map((repo: { name: string, url: string }) => {
-            return {name: repo.name, url: repo.url}
+          repositories: el.data.user.repositories.edges.map((repo: { node: { name: string, url: string } }) => {
+            return {name: repo.node.name, url: repo.node.url}
           })
         }
       })

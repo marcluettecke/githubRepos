@@ -14,7 +14,6 @@ import {Subscription} from "rxjs";
              styleUrls: ['./contributors.component.scss']
            })
 export class ContributorsComponent implements OnInit, OnDestroy {
-  testData: Object
   contributors: string[]
   contributorsInfo: UserInfo[] = []
   name: string
@@ -22,6 +21,7 @@ export class ContributorsComponent implements OnInit, OnDestroy {
   storeSubscriptionContributors: Subscription
   paramsSubscription: Subscription
   dataStorageSubscription: Subscription
+  loading = true
 
   constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute, private store: Store<AppState>) {
   }
@@ -45,6 +45,7 @@ export class ContributorsComponent implements OnInit, OnDestroy {
               this.store.dispatch(new ContributorsActions.AddContributor(userResponse))
             })
           })
+          this.loading = false
         })
       }
     })

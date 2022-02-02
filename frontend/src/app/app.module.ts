@@ -19,6 +19,7 @@ import * as fromApp from './store/app.reducer'
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {UserCardComponent} from './components/user-card/user-card.component';
+import {LoadingSpinnerComponent} from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
             declarations: [
@@ -28,6 +29,7 @@ import {UserCardComponent} from './components/user-card/user-card.component';
               RepoTableComponent,
               HeaderComponent,
               UserCardComponent,
+              LoadingSpinnerComponent,
             ],
             imports: [
               BrowserModule,

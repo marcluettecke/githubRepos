@@ -6,7 +6,6 @@ import {Subscription} from "rxjs";
 import * as RepoActions from './store/repos.actions'
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../store/app.reducer";
-import {UserInfo} from "../../../models/UserInfo";
 
 @Component({
              selector: 'app-overview',
@@ -14,36 +13,12 @@ import {UserInfo} from "../../../models/UserInfo";
              styleUrls: ['./overview.component.scss']
            })
 export class OverviewComponent implements OnInit {
-  mockData: UserInfo = {
-    name: 'Max Mustermann',
-    avatarUrl: 'https://st4.depositphotos.com/4329009/19956/v/380/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg?forcejpeg=true',
-    company: 'Random Company',
-    email: 'test.email@gmail.com',
-    location: 'San Francisco, USA',
-    websiteUrl: 'www.google.com',
-    repositories: [
-      {
-        name: 'randomRepo1',
-        url: 'https://github.com/marcluettecke/googleTaxonomy'
-      },
-      {
-        name: 'randomRepo2',
-        url: 'https://github.com/marcluettecke/googleTaxonomy'
-      },
-      {
-        name: 'randomRepo3',
-        url: 'https://github.com/marcluettecke/googleTaxonomy'
-      },
-
-    ]
-  }
-
-
   contributors: string[]
   dataSource = new MatTableDataSource<RepositoryInfo>()
   endCursor: string
   repoSub: Subscription
-  fetchAmount = 5
+  fetchAmount = 15
+  loading = true
 
   constructor(private dataStorageService: DataStorageService, private store: Store<AppState>) {
   }
@@ -56,6 +31,7 @@ export class OverviewComponent implements OnInit {
         // this.dataSource.paginator = this.paginator
         this.repoSub = this.dataStorageService.fetchAllRepos(this.fetchAmount).subscribe(response => {
           this.dataSource = new MatTableDataSource<RepositoryInfo>(response.data)
+          this.loading = false
           this.endCursor = response.endCursor
           this.store.dispatch(new RepoActions.AddRepos(response))
         })
@@ -74,16 +50,18 @@ export class OverviewComponent implements OnInit {
     const scrollLocation = event.target.scrollTop; // how far user scrolled
 
 
-    // If the user has scrolled within 200px of the bottom, add more data
-    const buffer = 200;
+    // If the user has scrolled within 10px of the bottom, add more data
+    const buffer = 10;
     const limit = tableScrollHeight - tableViewHeight - buffer;
     if (scrollLocation > limit) {
+      // this.loading = true
       this.dataStorageService.fetchAllRepos(this.fetchAmount, this.endCursor)
         .subscribe(response => {
-                     const newData = [...this.dataSource.data, ...response.data]
-                     this.dataSource = new MatTableDataSource(newData)
-                     this.store.dispatch(new RepoActions.AddRepos({
-                                                                    count: response.count,
+          const newData = [...this.dataSource.data, ...response.data]
+          this.dataSource = new MatTableDataSource(newData)
+          // this.loading = false
+          this.store.dispatch(new RepoActions.AddRepos({
+                                                         count: response.count,
                                                                     endCursor: response.endCursor,
                                                                     data: newData
                                                                   }))
