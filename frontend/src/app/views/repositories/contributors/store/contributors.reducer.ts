@@ -24,6 +24,8 @@ export function contributorsReducer(state: ContributorsState = initialState,
       }
       const newContributors = [...state.contributors, newContributor]
       return {...state, contributors: newContributors}
+    case ContributorsActions.CLEARCONTRIBUTORS:
+      return {...state, contributors: []}
     default:
       return state
   }

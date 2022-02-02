@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
       if (appState) {
         this.owner = appState.selection.owner
         this.repo = appState.selection.repo
-        console.log(this.owner)
       }
     })
 

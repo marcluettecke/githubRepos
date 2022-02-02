@@ -10,7 +10,7 @@ class ContributorScaper:
     def __init__(self, url):
         self.url = url
         op = webdriver.ChromeOptions()
-        # op.headless = True
+        op.headless = True
         op.add_argument("--window-size=1920,1200")
         self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=op)
         self.contributor_accounts = []
@@ -27,6 +27,7 @@ class ContributorScaper:
         self.driver.quit()
 
     def scrape_contributors(self):
+        print('scraping')
         self.__login()
         self.driver.get(self.url)
         time.sleep(1)

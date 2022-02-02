@@ -28,7 +28,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.loading = true
     this.store.select('repos').subscribe(appState => {
       if (appState.repos.count !== 0) {
-        console.log(appState.repos.data)
         this.dataSource = new MatTableDataSource<RepositoryInfo>(appState.repos.data)
         this.loading = false
       } else {
@@ -55,20 +54,23 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
 
     // If the user has scrolled within 10px of the bottom, add more data
-    const buffer = 10;
+    const buffer = 2;
     const limit = tableScrollHeight - tableViewHeight - buffer;
     if (scrollLocation > limit) {
       // this.loading = true
       this.dataStorageService.fetchAllRepos(this.fetchAmount, this.endCursor)
         .subscribe(response => {
-          const newData = [...this.dataSource.data, ...response.data]
-          this.dataSource = new MatTableDataSource(newData)
-          // this.loading = false
-          this.store.dispatch(new RepoActions.AddRepos({
-                                                         count: response.count,
-                                                         endCursor: response.endCursor,
-                                                         data: newData
-                                                       }))
+                     if (this.endCursor !== response.endCursor) {
+                       const newData = [...this.dataSource.data, ...response.data]
+                       this.endCursor = response.endCursor
+                       this.dataSource = new MatTableDataSource(newData)
+                       this.store.dispatch(new RepoActions.AddRepos({
+                                                                      count: response.count,
+                                                                      endCursor: response.endCursor,
+                                                                      data: newData
+                                                                    }))
+                     }
+
                    }
         )
 
