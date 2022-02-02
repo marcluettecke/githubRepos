@@ -18,22 +18,24 @@ export class ContributorsComponent implements OnInit, OnDestroy {
   name: string
   owner: string
   storeSubscriptionContributors: Subscription
-  storeSubscriptionSelection: Subscription
   paramsSubscription: Subscription
   dataStorageSubscription: Subscription
   loading = true
 
-  constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute, private store: Store<AppState>) {
+  constructor(
+    private dataStorageService: DataStorageService,
+    private route: ActivatedRoute,
+    private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
 
     this.paramsSubscription = this.route.params.subscribe(params => {
-      this.name = params.owner
-      this.owner = params.repo
+      this.name = params.repo
+      this.owner = params.owner
     })
     this.store.dispatch(new ContributorsActions.ClearContributor())
-    this.dataStorageSubscription = this.dataStorageService.scrapeContributors(this.name, this.owner).subscribe((response: string[]) => {
+    this.dataStorageSubscription = this.dataStorageService.scrapeContributors(this.owner, this.name).subscribe((response: string[]) => {
       this.contributors = response
       this.contributors.map(el => {
         this.dataStorageService.getSingleUserInfo(el).subscribe(userResponse => {
@@ -45,29 +47,6 @@ export class ContributorsComponent implements OnInit, OnDestroy {
     this.storeSubscriptionContributors = this.store.select('contributors').subscribe(appState => {
       this.contributorsInfo = appState.contributors
     })
-
-
-    // this.storeSubscriptionContributors = this.store.select('contributors').subscribe(appState => {
-    //   if (appState.contributors === []) {
-    //     if (appState) {
-    //       this.contributorsInfo = appState.contributors
-    //     }
-    //     this.paramsSubscription = this.route.params.subscribe(params => {
-    //       this.name = params.owner
-    //       this.owner = params.repo
-    //     })
-    //     this.dataStorageSubscription = this.dataStorageService.scrapeContributors(this.name, this.owner).subscribe((response: string[]) => {
-    //       console.log('test')
-    //       this.contributors = response
-    //       this.contributors.map(el => {
-    //         this.dataStorageService.getSingleUserInfo(el).subscribe(userResponse => {
-    //           this.store.dispatch(new ContributorsActions.AddContributor(userResponse))
-    //         })
-    //       })
-    //       this.loading = false
-    //     })
-    //   }
-    // })
   }
 
   ngOnDestroy() {

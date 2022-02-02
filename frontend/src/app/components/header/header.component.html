@@ -1,11 +1,14 @@
 <p class="header-wrapper">
   <mat-toolbar color="primary">
   <span>Github Repos</span>
-  <span class="example-spacer"></span>
-  <button [routerLink]="['repositories']" mat-button class="example-icon favorite-icon">
+  <span class="spacer"></span>
+  <button [routerLink]="['welcome']" mat-button>
+    Welcome
+  </button>
+  <button [routerLink]="['repositories']" mat-button>
     Overview
   </button>
-  <button (click)="handleNavigationClick()" mat-button class="example-icon">
+  <button (click)="handleNavigationClick()" mat-button>
    Contributors
  </button>
 </mat-toolbar>

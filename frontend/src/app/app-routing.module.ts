@@ -2,12 +2,17 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {OverviewComponent} from "./views/repositories/overview/overview.component";
 import {ContributorsComponent} from "./views/repositories/contributors/contributors.component";
+import {WelcomeComponent} from "./views/welcome/welcome.component";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'repositories',
+    redirectTo: 'welcome',
     pathMatch: 'full'
+  },
+  {
+    path: 'welcome',
+    component: WelcomeComponent,
   },
   {
     path: 'repositories',
@@ -19,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: OverviewComponent
+    component: WelcomeComponent
   }
 ];
 

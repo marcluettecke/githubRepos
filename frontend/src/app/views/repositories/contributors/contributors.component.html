@@ -1,5 +1,6 @@
-<div class="view-wrapper">
-  <h2>Contributors to https://github.com/{{owner}}/{{name}}/, total of {{contributorsInfo.length}}</h2>
+<div class="view-wrapper" *ngIf="name !== ''">
+  <h2>Contributors to <span>{{name}}</span> by {{owner}} (link: <a [href]="'https://github.com/'+owner+'/'+name+'/'">here)</a>.
+      Total of {{contributorsInfo.length}} contributors</h2>
   <div class="contributor-wrapper">
     <app-user-card *ngFor="let contributor of contributorsInfo; let i = index" [currentIndex]="i"
                    [userInfo]="contributor"
@@ -8,4 +9,8 @@
   <div class="loading-wrapper" *ngIf="loading">
     <app-loading-spinner></app-loading-spinner>
   </div>
+</div>
+<div class="empty-view-wrapper" *ngIf="name === ''">
+  <h2 class="message">Sorry, but no repository was selected. Go to <a routerLink="/repositories">Overview</a> to select one and return here to
+  retrieve a list of people, who contributed to it...</h2>
 </div>

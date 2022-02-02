@@ -20,6 +20,8 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {UserCardComponent} from './components/user-card/user-card.component';
 import {LoadingSpinnerComponent} from './components/loading-spinner/loading-spinner.component';
+import {WelcomeComponent} from './views/welcome/welcome.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome'
 
 @NgModule({
             declarations: [
@@ -30,6 +32,7 @@ import {LoadingSpinnerComponent} from './components/loading-spinner/loading-spin
               HeaderComponent,
               UserCardComponent,
               LoadingSpinnerComponent,
+              WelcomeComponent,
             ],
             imports: [
               BrowserModule,
@@ -38,6 +41,7 @@ import {LoadingSpinnerComponent} from './components/loading-spinner/loading-spin
               BrowserAnimationsModule,
               MaterialModule,
               HttpClientModule,
+              FontAwesomeModule,
               StoreModule.forRoot({
                                     contributors: fromApp.appReducer.contributors,
                                     repos: fromApp.appReducer.repos,

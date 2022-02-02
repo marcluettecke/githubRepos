@@ -53,7 +53,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     const scrollLocation = event.target.scrollTop; // how far user scrolled
 
 
-    // If the user has scrolled within 10px of the bottom, add more data
+    // If the user has scrolled within 2px of the bottom, add more data
     const buffer = 2;
     const limit = tableScrollHeight - tableViewHeight - buffer;
     if (scrollLocation > limit) {

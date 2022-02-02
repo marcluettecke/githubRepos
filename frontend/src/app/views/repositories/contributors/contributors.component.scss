@@ -4,6 +4,24 @@
   padding-top: 100px;
   height: 800px;
 
+  h2 {
+    font-size: 1.75rem;
+
+    span {
+      color: var(--accent);
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--primary);
+
+      &:hover {
+        color: var(--accent);
+      }
+    }
+  }
+
+
   .contributor-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -16,5 +34,25 @@
     height: 100%;
     display: grid;
     place-content: center;
+  }
+}
+
+.empty-view-wrapper {
+  width: 50%;
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  place-content: center;
+
+  .message {
+    font-size: 2rem;
+    line-height: 2;
+    text-align: center;
+    color: rgba(0, 0, 0, .6);
+
+    & a {
+      color: var(--primary);
+      text-decoration: none;
+    }
   }
 }

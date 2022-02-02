@@ -2,14 +2,14 @@
   <div class="content-wrapper">
     <h2>Contributor Info Card</h2>
     <div class="separator-line"></div>
-    <span>{{currentIndex + 1}} /{{contributorsLength}}</span>
+    <span class="count">{{currentIndex + 1}} /{{contributorsLength}}</span>
     <div class="image-wrapper">
       <img [src]="userInfo.avatarUrl? userInfo.avatarUrl : defaultImgUrl" alt="User Profile Avatar">
     </div>
     <div class="contact-wrapper">
-      <p class="name">{{userInfo.name}}</p>
+      <p class="contact-field">{{userInfo.name}}</p>
       <div class="separator"> | </div>
-      <p class="company">{{userInfo.company ? userInfo.company : 'NA'}}</p>
+      <p class="contact-field">{{userInfo.company ? userInfo.company : 'NA'}}</p>
     </div>
     <p class="location">{{userInfo.location ? userInfo.location : 'NA'}}</p>
     <div class="action-wrapper">

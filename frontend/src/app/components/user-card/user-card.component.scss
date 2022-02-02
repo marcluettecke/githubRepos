@@ -1,5 +1,5 @@
 .content-wrapper {
-  width: 300px;
+  width: 350px;
   height: 450px;
   display: flex;
   flex-direction: column;
@@ -15,6 +15,11 @@
     width: calc(100% + 2 * 17px);
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
     margin: 16px 0 14px 0;
+  }
+
+  .count {
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: bold;
   }
 
   .image-wrapper {
@@ -34,6 +39,12 @@
     gap: 10px;
     color: rgba(1, 1, 1, 0.5);
     font-weight: bold;
+
+    .contact-field {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
 
   }
