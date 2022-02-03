@@ -18,9 +18,9 @@ class ContributorScaper:
     def __login(self):
         self.driver.get("https://github.com/login")
         login_field = self.driver.find_element(by='id', value='login_field')
-        login_field.send_keys('marc.luettecke1@gmail.com')
+        login_field.send_keys('****')
         password_field = self.driver.find_element(by='id', value='password')
-        password_field.send_keys('B-ball1234B-ball1234B-ball1234')
+        password_field.send_keys('****')
         password_field.submit()
 
     def __quit_driver(self):

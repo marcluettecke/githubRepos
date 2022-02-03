@@ -12,6 +12,7 @@ frontend/package-lock.json
 frontend/node_modules
 frontend/src/environments/environment.prod.ts
 frontend/src/environments/environment.ts
+frontend/src/environments/
 
 # profiling files
 chrome-profiler-events*.json
