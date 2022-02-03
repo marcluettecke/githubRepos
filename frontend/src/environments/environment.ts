@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  githubAccessToken: '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',
+  githubAccessToken: '****',
   githubApiUrl: 'https://api.github.com/graphql'
 };
 
