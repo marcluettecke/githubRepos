@@ -37,6 +37,9 @@ yarn-error.log
 testem.log
 /typings
 
+# backend
+/backend/scripts/scraper.py
+
 # System Files
 .DS_Store
 Thumbs.db
